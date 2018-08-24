@@ -2,7 +2,7 @@
 
 Code for the [Kaggle TGS Salt Identification Challenge](https://www.kaggle.com/c/tgs-salt-identification-challenge/overview)
 
-## Setup
+## Usage
 1. Install git and checkout the [git code repository]
 2. Install [anaconda] python version 3.6+
 3. Change working directory into the git code repository root
@@ -19,8 +19,30 @@ conda environments site-packages folder but with a symlink to the src folder so 
     As an alternative you may prefer to set the python path directly from the console, within notebooks, test scripts 
     etc. From Pycharm you can also right click the src folder and select the _Mark Directory As | Source Root_ option.
 
-6. Download data from the [Kaggle page](https://www.kaggle.com/c/tgs-salt-identification-challenge/data) and place inside the data/raw folder. Extract train.zip and test.zip into new folders train and test.
+6. Download data from the [Kaggle page](https://www.kaggle.com/c/tgs-salt-identification-challenge/data) and place 
+inside the data/raw folder. Extract train.zip and test.zip into new folders train and test. You can either do this
+manually or using the [Kaggle api](https://github.com/Kaggle/kaggle-api) (setup credentials as documented)
 
+   ```
+   cd data/raw
+   kaggle competitions download -c tgs-salt-identification-challenge
+   unzip train.zip -d train
+   unzip test.zip -d test
+   rm train.zip
+   rm test.zip
+   ```
+
+7. Models include:
+    * notebooks/models/U-Net.ipynb - notebook using U-Net architecture
+    * scripts/crf.py - Conditional Random Fields model. Run this on any submissions file to generate updated output. 
+    
+8. Submissions can be uploaded manually through the web page or using the 
+[Kaggle api](https://github.com/Kaggle/kaggle-api) (setup credentials as documented)
+
+    ```
+    kaggle competitions submit tgs-salt-identification-challenge -f submission.csv.7z -m "My submission message"
+    ```
+    
 NOTE: When working in the project notebooks from within the Equinor network, you may need to include the lines below if your proxy is not otherwise setup.
 
 `os.environ['HTTP_PROXY']="http://www-proxy.statoil.no:80"`<br />
@@ -51,36 +73,21 @@ Once the Python Conda environment has been set up, you can
 ├── .gitignore               <- Files that should be ignored by git. Add seperate .gitignore files in sub folders if 
 │                               needed
 ├── conda_env.yml            <- Conda environment definition for ensuring consistent setup across environments
-├── LICENSE
 ├── README.md                <- The top-level README for developers using this project.
 ├── requirements.txt         <- The requirements file for reproducing the analysis environment, e.g.
 │                               generated with `pip freeze > requirements.txt`. Might not be needed if using conda.
 ├── setup.py                 <- Metadata about your project for easy distribution.
 │
 ├── data
-│   ├── interim_[desc]       <- Interim files - give these folders whatever name makes sense.
 │   ├── processed            <- The final, canonical data sets for modeling.
 │   ├── raw                  <- The original, immutable data dump.
 │   └── temp                 <- Temporary files.
 │
-├── docs                     <- Any specific documentation (try ideally to keep to README.md)
-│   └── process_documentation.mf  <- Standard template for documenting process and decisions.
-│
-├── examples                 <- Add folders as needed e.g. examples, eda, use case
-│
-├── extras                   <- Miscellaneous extras.
-│   └── add_explorer_context_shortcuts.reg    <- Adds additional Windows Explorer context menus for starting jupyter.
-│
 ├── notebooks                <- Notebooks for analysis and testing
 │   ├── eda                  <- Notebooks for EDA
 │   │   └── example.ipynb    <- Example python notebook
-│   ├── features             <- Notebooks for generating and analysing features (1 per feature)
 │   ├── modelling            <- Notebooks for modelling
 │   └── preprocessing        <- Notebooks for Preprocessing 
-│
-├── reporting                <- Solutions for reporting of results
-│   ├── webapp               <- Flask based template for displaying content including text and graphs
-│   └── README.md            <- Information on usage and setup of the webapp sample and more
 │
 ├── src                      <- Code for use in this project.
 │   └── examplepackage       <- Example python package - place shared code in such a package

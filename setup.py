@@ -17,7 +17,7 @@ setup(
     author_email="Name@statoil.com",
     description="An example data science project",
     long_description=open('README.md').read(),
-    packages=['examplepackage'],
+    packages=['tgssalt_challenge'],
     package_dir={'': 'src'},
     test_suite='tests',
     classifiers=[
